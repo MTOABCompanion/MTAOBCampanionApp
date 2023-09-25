@@ -1,0 +1,444 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+  <title>Vault Hunter</title>
+  <style>
+    /* * {
+      box-sizing: border-box;
+    } */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: 'Your-Borderlands-Font';
+      src: url('https://fonts.googleapis.com/css2?family=Orbitron=swap') format('woff2');
+    }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      margin: 20px;
+      background-color: #121212;
+      color: #9dfcff;
+      /* Light text */
+      background-image: url('https://cdn.discordapp.com/attachments/1138311293720330240/1155056245192007690/backgroundimage2.jpg');
+      /* Replace with your image URL */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* Add background colors to item type headers */
+    h3 {
+      background-color: rgb(13, 110, 155);
+      color: #e6e0e0;
+      padding: 8px;
+      margin-top: 16px;
+      border-radius: 4px;
+      text-shadow: 3px px 2px #000;
+      text-align: center;
+
+    }
+
+    button {
+      font-family: 'Orbitron', sans-serif;
+      margin-top: 0px;
+      background-color: hsl(212, 83%, 27%);
+      border: 3px solid #000;
+      color: rgb(172, 255, 255);
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      text-shadow: 2px 2px 2px #000;
+    }
+
+    button:hover {
+      background-color: hwb(0 81% 19%);
+    }
+
+    select,
+    input[type="text"] {
+      /* width: 20%; */
+      padding: 12px 20px;
+      margin: 8px 0;
+      background-color: #121212;
+      color: hsl(0, 0%, 100%);
+      border: 2px solid hwb(199 2% 20%);
+    }
+
+    #selectedItems {
+      border: 2px solid #1776b6;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      border-radius: 4px;
+      padding: 16px;
+      width: 50%;
+      text-align: center;
+      background-color: #121212;
+    }
+
+    img {
+      max-width: 200px;
+      border: 2px solid #1462d6;
+      border-radius: 4px;
+      padding: 16px;
+    }
+
+    .container {
+      display: flex;
+      /* justify-content: center; */
+      flex-direction: column;
+
+      /* width: 100%; */
+      /* border: 2px solid red; */
+      /* justify-content: center; */
+      /* align-items: center; */
+    }
+
+    .main-content {
+      display: flex;
+      /* flex-wrap: wrap; */
+      /* width: 45%; */
+      /* border: 2px solid orange; */
+    }
+
+    .hunters-con {
+      display: flex;
+      flex-direction: column;
+      /* flex-shrink: 5; */
+      /* align-items: center; */
+      /* border: 5px dotted hotpink; */
+      width: 29%;
+    }
+
+    #btn-remove {
+        display: flex;
+        padding: .2rem .5rem .2rem .5rem;
+        font-size: .8rem;
+        /* border: 3px solid red; */
+        /* width: 40%;
+        height: 40%; */
+    }
+    /* 
+    #inventory {
+
+      border-left: 2px solid #1776b6;
+      width: 50%;
+      float: right;
+    } */
+    .item-info-con {
+      display: flex;
+      flex-shrink: 5;
+      border: 3px dotted green;
+
+      /* width: 80%; */
+    }
+
+    .inventory-con {
+      border-left: 2px solid #1776b6;
+      margin-top: 7.8px;
+      width: 70%;
+      /* float: right; */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container"> <!-- This is the new flex container -->
+
+
+
+    <div class="vault-btns-con">
+      <!-- Existing content like buttons, #vaultHunterInfo, etc. goes here -->
+      <button id="vault1">Vault Hunter 1</button>
+      <button id="vault2">Vault Hunter 2</button>
+      <button id="vault3">Vault Hunter 3</button>
+      <button id="vault4">Vault Hunter 4</button>
+    </div>
+
+    <div class="main-content">
+
+      <div class="hunters-con">
+        <select id="imageSelector"></select>
+
+        <div class="vaultHunter-info-con" id="vaultHunterInfo">
+          <img id="displayedImage" src="">
+          <div id="statsContainer">
+            <p>Level: <span id="level">0</span></p>
+            <p>Scenario: <span id="scenario">0</span></p>
+          </div>
+        </div>
+        <button id="increaseLevel">Increase Level</button>
+        <button id="decreaseLevel">Decrease Level</button>
+        <br>
+        <button id="increaseScenario">Increase Scenario</button>
+        <button id="decreaseScenario">Decrease Scenario</button>
+        
+
+        
+          <select id="itemTypeSelector">
+            <option value="weapons">Equipped Weapon</option>
+            <option value="shields">Shield Mod</option>
+            <option value="grenades">Grenade Mod</option>
+            <option value="characters">Character Mod</option>
+            <option value="backpacks">Backpack</option>
+          </select>
+          <input type="text" id="itemName" placeholder="Item Name">
+          <button id="addItem">Add Item</button>
+        
+
+      </div>
+        
+        
+      <div class="inventory-con" id="inventory">
+        <!-- Inventory goes here -->
+        <div id="selectedItems">
+          <h3 class="item-header">Equipped Weapons</h3>
+          <div id="weapons">
+            <p class="item-list">Weapon 1</p>
+            <p class="item-list">Weapon 2</p>
+          </div>
+
+          <h3>Shields</h3>
+          <div id="shields"></div>
+
+          <h3>Grenades</h3>
+          <div id="grenades"></div>
+          
+          <h3>Character Mods</h3>
+          <div id="characters"></div>
+          
+          <h3>Backpack</h3>
+          <div id="backpacks"></div>
+        </div>
+      </div>
+      
+    </div> <!-- End of main-content -->
+
+    <!-- <div class="inventory-con">
+      
+    </div> -->
+
+
+
+    <!-- <div id="inventory">
+      
+      <div id="selectedItems">
+        <h3 class="item-header">Equipped Weapons</h3>
+        <div id="weapons">
+          <p class="item-list">Weapon 1</p>
+          <p class="item-list">Weapon 2</p>
+        </div>
+
+        <h3>Shields</h3>
+        <div id="shields"></div>
+
+        <h3>Grenades</h3>
+        <div id="grenades"></div>
+
+        <h3>Character Mods</h3>
+        <div id="characters"></div>
+
+        <h3>Backpack</h3>
+        <div id="backpacks"></div>
+      </div>
+    </div> -->
+    <!-- </br> End of inventory -->
+
+  </div><!-- End of container -->
+
+  <script>
+
+    const availableVaultHunters = [
+      { name: 'Amara', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155041276215971841/AmaraImage.jpg' },
+      {name: 'Athena', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050075567960155/AthenaImage.jpg' },
+      {name: 'Aurelia', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050089597894707/AureliaImage.jpg' },
+      {name: 'Axton', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050102877065236/AxtonImage.jpg' },
+      {name: 'Brick', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050120484749312/brickImage.jpg' },
+      {name: 'cl4ptp', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050136913838112/cl4ptpImage.jpg' },
+      {name: 'fl4k', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050155414925354/fl4kImage.jpg' },
+      {name: 'Gaige', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050174419304559/gaigeImage.jpg' },
+      {name: 'Krieg', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050193742467092/kriegImage.jpg' },
+      {name: 'Lilith', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050213615087616/lilithImage.jpg' },
+      {name: 'Maya', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050240932585472/mayaImage.jpg' },
+      {name: 'Mordecai', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050258104074270/mordecaiImage.jpg' },
+      {name: 'Moze', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050274638020659/mozeImage.jpg' },
+      {name: 'MrTorgue', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050291935314020/mrtorgueImage.jpg' },
+      {name: 'Nisha', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050310801293403/nishaImage.jpg' },
+      {name: 'Roland', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050325359730688/rolandImage.jpg' },
+      {name: 'Salvador', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050346369003610/salvadorImage.jpg' },
+      {name: 'Timothy Lawrence', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050368565252108/timothylawrenceImage.jpg' },
+      {name: 'Tiny Tina', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050395895337010/tinytinaImage.jpg' },
+      {name: 'Wilhelm', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050417022050364/wilhelmImage.jpg' },
+      {name: 'Zane', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155041303999025252/ZaneImage.jpg' },
+      {name: 'Zero', image: 'https://cdn.discordapp.com/attachments/1138311293720330240/1155050458440810566/ZeroImage.jpg' },
+    ];
+
+    let vaultHunters = [
+      { items: [], selectedImage: 0, level: 0, scenario: 0 },
+      { items: [], selectedImage: 0, level: 0, scenario: 0 },
+      { items: [], selectedImage: 0, level: 0, scenario: 0 },
+      { items: [], selectedImage: 0, level: 0, scenario: 0 }
+    ];
+
+    // Load saved data if it exists
+    const storedData = localStorage.getItem('vaultHunters');
+    if (storedData !== null) {
+      try {
+        const parsedData = JSON.parse(storedData);
+        if (Array.isArray(parsedData)) {
+
+          // Add the new check here
+          parsedData.forEach((hunter, index) => {
+            if (typeof hunter.level !== 'number') {
+              parsedData[index].level = 0;
+            }
+            if (typeof hunter.scenario !== 'number') {
+              parsedData[index].scenario = 0;
+            }
+          });
+
+          // Then proceed with the assignment
+          vaultHunters = parsedData;
+
+        } else {
+          console.error("Parsed vaultHunters is not an array");
+        }
+      } catch (e) {
+        console.error("Error parsing vaultHunters from localStorage: ", e);
+      }
+    }
+
+    // Function to save the current state
+    const saveState = () => {
+      localStorage.setItem('vaultHunters', JSON.stringify(vaultHunters));
+    }
+
+    let currentVaultHunterIndex = 0;
+
+    const imageSelector = document.getElementById('imageSelector');
+    const displayedImage = document.getElementById('displayedImage');
+    const itemTypeSelector = document.getElementById('itemTypeSelector');
+    const itemNameInput = document.getElementById('itemName');
+    const addItemButton = document.getElementById('addItem');
+
+    addItemButton.addEventListener('click', function () {
+      const itemType = itemTypeSelector.value;
+      const itemName = itemNameInput.value;
+
+      vaultHunters[currentVaultHunterIndex].items.push({ type: itemType, name: itemName });
+      updateUI();
+      saveState();
+    });
+
+    availableVaultHunters.forEach((hunter, index) => {
+      const option = document.createElement('option');
+      option.value = index;
+      option.textContent = hunter.name;
+      imageSelector.appendChild(option);
+    });
+
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById(`vault${i}`).addEventListener('click', function () {
+        currentVaultHunterIndex = i - 1;
+        updateUI();
+      });
+    }
+
+    imageSelector.addEventListener('change', function () {
+      vaultHunters[currentVaultHunterIndex].selectedImage = this.value;
+      updateUI();
+      saveState();
+    });
+
+    const updateUI = () => {
+      const currentVaultHunter = vaultHunters[currentVaultHunterIndex];
+      const allowedIds = ["shields", "grenades", "characters", "backpacks", "weapons"];
+
+      // Clear existing items
+      allowedIds.forEach(id => {
+        const elem = document.getElementById(id);
+        if (elem) {
+          elem.innerHTML = '';
+        }
+      });
+
+      // Add new items
+      currentVaultHunter.items.forEach((item, index) => {
+        if (allowedIds.includes(item.type)) {
+          const itemDiv = document.createElement('div');
+          itemDiv.textContent = item.name;
+
+          const removeButton = document.createElement('button');
+          removeButton.id = 'btn-remove';
+          removeButton.textContent = 'Remove';
+          removeButton.addEventListener('click', () => {
+            currentVaultHunter.items.splice(index, 1);
+            updateUI();
+            saveState();
+          });
+
+          itemDiv.appendChild(removeButton);
+          document.getElementById(item.type).appendChild(itemDiv);
+        } else {
+          console.error(`Invalid item type: ${item.type}`);
+        }
+      });
+
+      document.getElementById("level").innerText = currentVaultHunter.level;
+      document.getElementById("scenario").innerText = currentVaultHunter.scenario;
+
+      displayedImage.src = availableVaultHunters[currentVaultHunter.selectedImage].image;
+      imageSelector.value = currentVaultHunter.selectedImage;
+    };
+
+    document.getElementById("increaseLevel").addEventListener('click', function () {
+      vaultHunters[currentVaultHunterIndex].level++;
+      updateUI();
+      saveState();
+    });
+
+    document.getElementById("increaseScenario").addEventListener('click', function () {
+      vaultHunters[currentVaultHunterIndex].scenario++;
+      updateUI();
+      saveState();
+    });
+    // Function to decrease level
+    document.getElementById("decreaseLevel").addEventListener('click', function () {
+      if (vaultHunters[currentVaultHunterIndex].level > 0) {
+        vaultHunters[currentVaultHunterIndex].level -= 1;
+        updateUI();
+        saveState();
+      }
+    });
+
+    // Function to decrease scenario
+    document.getElementById("decreaseScenario").addEventListener('click', function () {
+      if (vaultHunters[currentVaultHunterIndex].scenario > 0) {
+        vaultHunters[currentVaultHunterIndex].scenario -= 1;
+        updateUI();
+        saveState();
+      }
+    });
+
+
+    const initUI = () => {
+      // Set initial value for imageSelector and displayedImage
+      imageSelector.value = vaultHunters[currentVaultHunterIndex].selectedImage;
+      displayedImage.src = availableVaultHunters[vaultHunters[currentVaultHunterIndex].selectedImage].image;
+      updateUI();
+    }
+
+    // Initialize the UI with currentVaultHunterIndex = 0
+    initUI();
+  </script>
+</body>
+
+</html>
